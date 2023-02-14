@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    letters-btn-border:#7AA7C7;
+    letters-btn-bg-disabled:#9FAAB5;
+    letters-btn-color-disabled:#798A9F;
+    letters-btn-color-enabled:#39739D;
+    letters-btn-bg-enabled:#E1ECF4;
+    
+    choose-word-btn-bg:#27AE60;
+    black: black;
+    quarentene-color-red:#FF0000;
+    quarentene-color-green:#27AE60;
+
+    know-the-word-border: #CCCCCC;
+    try-word-color: #3C76A1;
+    try-word-border: #7AA7C7;
+
+}
