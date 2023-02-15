@@ -9,8 +9,9 @@ const styles = {
         lettersBtnColorEnabled: '#39739D',
         lettersBtnBgEnabled: '#E1ECF4',
 
-        chooseWordBtnBg: '#27AE60',
+        RandomWordButtonBg: '#27AE60',
         black: 'black',
+        white: 'white',
         quarenteneColorRed: '#FF00001',
         quarenteneColorGreen: '#27AE60',
 
@@ -19,7 +20,7 @@ const styles = {
         tryWordBorder: '#7AA7C7'
     },
     fonts: {
-        choosenWord: {
+        beginButton: {
             fontSize: '20px',
             lineHeight: '23px'
         },
