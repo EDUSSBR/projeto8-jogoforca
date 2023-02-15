@@ -17,7 +17,8 @@ const styles = {
 
         knowTheWordBorder: '#CCCCCC',
         tryWordColor: '#3C76A1',
-        tryWordBorder: '#7AA7C7'
+        tryWordBorder: '#7AA7C7',
+        tryWordBg: '#E1ECF4'
     },
     fonts: {
         beginButton: {
