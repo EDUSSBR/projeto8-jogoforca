@@ -1,7 +1,4 @@
-import {Label} from './Chute/Label'
-import {TryButton} from './Chute/TryButton'
-import {KnowTheWordInput} from './Chute/KnowTheWordInput'
-import {TryContainer} from './Chute/TryContainer'
+import { Label, TryButton, KnowTheWordInput, TryContainer } from './shared/ChuteItems'
 export function Chute() {
     return (
         <TryContainer>

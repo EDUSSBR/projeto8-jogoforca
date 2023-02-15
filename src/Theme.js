@@ -2,7 +2,6 @@ import { ThemeProvider } from "styled-components";
 
 const styles = {
     colors: {
-
         lettersBtnBorder: '#7AA7C7',
         lettersBtnBgDisabled: '#9FAAB5',
         lettersBtnColorDisabled: '#798A9F',
@@ -36,7 +35,6 @@ const styles = {
             lineHeight: '23px',
         },
     }
-
 }
 export default function Theme({children}){
     return <ThemeProvider theme={styles}>{children}</ThemeProvider>
