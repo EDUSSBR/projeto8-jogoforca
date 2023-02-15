@@ -11,7 +11,7 @@ function App() {
       <Jogo initialWord={"HEHE"}/>
       </JogoContainer>
       <LetrasContainer>
-        {alfabeto.map((letter, index) => <Letras key={Object.keys(alfabeto)[index]} letter={letter} />)}
+        {alfabeto.map((letter, index) => <Letras key={Object.keys(alfabeto)[index]} letter={letter.toUpperCase()} />)}
       </LetrasContainer>
       <Chute />
     </>
