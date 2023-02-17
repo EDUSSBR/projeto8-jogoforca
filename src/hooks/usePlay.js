@@ -68,5 +68,19 @@ export function usePlay(lettersArr, outSideWords) {
         }
         setState(newState)
     }
-    return [state, startGame, tryLetter]
+
+    function tryFinalWord(word){
+        let newState = {...state}
+        newState.chosenWord = newState.chosenWord.map(letter => ({ ...letter, found: true }))
+        if (word===newState.chosenWord.map(letter=>letter.value).join("")){
+            newState.won=true
+        } else {
+            newState.lost = true
+    
+        }
+        newState.isDisabledInput= true
+        newState.trackedLettersArr = lettersArr.map((letter, index) => ({ letter: letter.toUpperCase(), alreadyUsed: false, id: index }))
+        setState(newState)
+    }
+    return [state, startGame, tryLetter, tryFinalWord]
 }
