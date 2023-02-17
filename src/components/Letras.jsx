@@ -13,10 +13,10 @@ const Button = styled.button`
 
 `
 
-export function Letras({ letter, isDisabled = true }) {
+export function Letras({ letter, isDisabled = true, tryLetter }) {
     return (
         <>
-            <Button disabled={isDisabled}>{letter}</Button>
+            <Button onClick={tryLetter} disabled={isDisabled}>{letter}</Button>
         </>)
 }
 
