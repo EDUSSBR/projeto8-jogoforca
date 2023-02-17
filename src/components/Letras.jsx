@@ -16,7 +16,7 @@ const Button = styled.button`
 export function Letras({ letter, isDisabled = true, tryLetter }) {
     return (
         <>
-            <Button onClick={tryLetter} disabled={isDisabled}>{letter}</Button>
+            <Button data-test="letter" onClick={tryLetter} disabled={isDisabled}>{letter}</Button>
         </>)
 }
 

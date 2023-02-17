@@ -5,10 +5,10 @@ import { ForcaImage, RandomWord, RandomWordButtonContainer, BeginButton } from "
 export function Jogo({ isLost, isWon, initialWord, startGame, lifePointsUsed }) {
     return (
         <>
-            <ForcaImage src={`./assets/forca${lifePointsUsed}.png`} />
+            <ForcaImage data-test="game-image" src={`./assets/forca${lifePointsUsed}.png`} />
             <RandomWordButtonContainer>
-                <BeginButton onClick={startGame}>Escolher Palavra</BeginButton>
-                <RandomWord isLost={isLost} isWon={isWon} >{initialWord}</RandomWord>
+                <BeginButton data-test="choose-word" onClick={startGame}>Escolher Palavra</BeginButton>
+                <RandomWord data-test="word" isLost={isLost} isWon={isWon} >{initialWord}</RandomWord>
             </RandomWordButtonContainer>
         </>)
 }
