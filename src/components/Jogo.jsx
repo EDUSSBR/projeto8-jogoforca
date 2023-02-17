@@ -1,13 +1,14 @@
-import initialImage from '../assets/forca0.png'
-import { ForcaImage, RandomWord, RandomWordButtonContainer, BeginButton } from "./shared/JogoItems";
 
-export function Jogo({ src = initialImage, initialWord }) {
+import { ForcaImage, RandomWord, RandomWordButtonContainer, BeginButton } from "./shared/JogoItems";
+// import { useState } from 'react';
+
+export function Jogo({ isLost, isWon, initialWord, startGame, lifePointsUsed }) {
     return (
         <>
-            <ForcaImage src={src} />
+            <ForcaImage src={`./assets/forca${lifePointsUsed}.png`} />
             <RandomWordButtonContainer>
-                <BeginButton>Escolher Palavra</BeginButton>
-                <RandomWord>{initialWord}</RandomWord>
+                <BeginButton onClick={startGame}>Escolher Palavra</BeginButton>
+                <RandomWord isLost={isLost} isWon={isWon} >{initialWord}</RandomWord>
             </RandomWordButtonContainer>
         </>)
 }
