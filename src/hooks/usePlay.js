@@ -10,32 +10,24 @@ const initialState = {
     lost: false
 }
 export function usePlay(lettersArr, outSideWords) {
-    const [state, setState] = useState({
-        words: outSideWords,
-        trackedLettersArr: lettersArr.map((letter, index) => ({ letter: letter.toUpperCase(), alreadyUsed: false, id: index })),
-        ...initialState
-    })
-    function startGame() {
-        const newState = {
-            ...state,
-            chosenWord: state.words[Math.floor(Math.random() * (state.words.length + 1))].split('').map(letter => ({ value: letter, found: false })),
-            trackedLettersArr: state.trackedLettersArr.map((item, index) => ({ letter: item.letter.toUpperCase(), alreadyUsed: true, id: index })),
-            isDisabledInput: false,
-            lifePointsUsed: 0,
-            won: false,
-            lost: false
-        }
-        setState(newState)
-        return newState
-    }
-
+    const disableLetters = () => lettersArr.map((letter, index) => ({ letter: letter.toUpperCase(), alreadyUsed: false, id: index }))
+    const enableLetters = () => lettersArr.map((letter, index) => ({ letter: letter.toUpperCase(), alreadyUsed: true, id: index }))
+    const generateWord = () => state.words[Math.floor(Math.random() * (state.words.length + 1))].split('').map(letter => ({ value: letter, found: false }))
+    const fullWordCheck = (word) => (word === state.chosenWord.map(letter => letter.value).join("")) ? true : false
+    const setChosenWordToShow = () => state.chosenWord.map(letter => ({ ...letter, found: true }))
+    const checkLifePoints = (points, maxLifePoints) => (maxLifePoints === points ? true : false)
+    const setLostState = (state) => ({ ...state, lost: true, isDisabledInput: true, trackedLettersArr: disableLetters(), chosenWord: setChosenWordToShow() })
+    const checkMissingLetters = (state) => (state.chosenWord.filter(item => item.found !== true).length === 0)
+    const setWonState = (state) => ({ ...state, won: true, isDisabledInput: true, trackedLettersArr: disableLetters() })
+    const resetState = () => ({ ...state, chosenWord: generateWord(), trackedLettersArr: enableLetters(), isDisabledInput: false, lifePointsUsed: 0, won: false, lost: false })
+    const [state, setState] = useState({words: outSideWords, trackedLettersArr: disableLetters(), ...initialState})
+    const startGame = () => setState(resetState())
     function tryLetter(letter) {
         let foundFlag = false
-        const newState = {
+        let newState = {
             ...state,
             chosenWord: state.chosenWord.map(item => {
                 if (item.value.toLowerCase() === letter.toLowerCase()) {
-    
                     foundFlag = true
                     return { ...item, found: true }
                 }
@@ -52,35 +44,17 @@ export function usePlay(lettersArr, outSideWords) {
             newState.lifePointsUsed += 1
             foundFlag = false
         }
-        let usedLifePointsSum = state.maxLifePoints === newState.lifePointsUsed
-        if (usedLifePointsSum) {
-            newState.lost = true
-            newState.isDisabledInput= true
-            newState.trackedLettersArr = lettersArr.map((letter, index) => ({ letter: letter.toUpperCase(), alreadyUsed: false, id: index }))
-            newState.chosenWord = newState.chosenWord.map(letter => ({ ...letter, found: true }))
+        if (checkLifePoints(state.maxLifePoints, newState.lifePointsUsed)) {
+            newState = setLostState(newState)
         }
-        let restantes = newState.chosenWord.filter(item => item.found !== true).length
-        if (restantes === 0) {
-            newState.won=true
-            newState.isDisabledInput= true
-            newState.trackedLettersArr = lettersArr.map((letter, index) => ({ letter: letter.toUpperCase(), alreadyUsed: false, id: index }))
-            
+        if (checkMissingLetters(newState)) {
+            newState = setWonState(newState)
         }
         setState(newState)
     }
-
-    function tryFinalWord(word){
-        let newState = {...state}
-        newState.chosenWord = newState.chosenWord.map(letter => ({ ...letter, found: true }))
-        if (word===newState.chosenWord.map(letter=>letter.value).join("")){
-            newState.won=true
-        } else {
-            newState.lost = true
-    
-        }
-        newState.isDisabledInput= true
-        newState.trackedLettersArr = lettersArr.map((letter, index) => ({ letter: letter.toUpperCase(), alreadyUsed: false, id: index }))
-        setState(newState)
+    const tryFinalWord = (word) => {
+        const wonOrLost = fullWordCheck(word) ? Object.assign({},{won:true}) : Object.assign({},{lost:true, lifePointsUsed: state.maxLifePoints})
+        setState({...state, chosenWord: setChosenWordToShow(), ...wonOrLost, isDisabledInput:true, trackedLettersArr: disableLetters()})
     }
     return [state, startGame, tryLetter, tryFinalWord]
 }
