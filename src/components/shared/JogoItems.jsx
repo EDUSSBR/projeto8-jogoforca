@@ -21,8 +21,11 @@ export const RandomWord = styled.p`
     font-size: ${({theme})=> theme.fonts.quarentine.fontSize};
     line-height: ${({theme})=> theme.fonts.quarentine.lineHeight};
     margin-right:61px;
+    color: ${({isWon, isLost})=> {
+        if (isLost) return 'red';
+        if (isWon) return 'green';
+    }}
 `
-
 export const RandomWordButtonContainer = styled.div`
     width: 100%;
     display:flex;
