@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 const Button = styled.button`
         background-color: ${({ theme }) => theme.colors.lettersBtnBgEnabled};
@@ -11,13 +11,13 @@ const Button = styled.button`
         color: ${({ theme }) => theme.colors.lettersBtnColorDisabled};
     }
 
-`
+`;
 
 export function Letras({ letter, isDisabled = true, tryLetter }) {
     return (
         <>
             <Button data-test="letter" onClick={tryLetter} disabled={isDisabled}>{letter}</Button>
-        </>)
+        </>);
 }
 
 

@@ -1,7 +1,5 @@
 
 import { ForcaImage, RandomWord, RandomWordButtonContainer, BeginButton } from "./shared/JogoItems";
-// import { useState } from 'react';
-
 export function Jogo({ isLost, isWon, initialWord, startGame, lifePointsUsed }) {
     return (
         <>
@@ -11,4 +9,4 @@ export function Jogo({ isLost, isWon, initialWord, startGame, lifePointsUsed }) 
                 <RandomWord data-test="word" isLost={isLost} isWon={isWon} >{initialWord}</RandomWord>
             </RandomWordButtonContainer>
         </>)
-}
+};
