@@ -6,6 +6,17 @@ import { Chute } from './components/Chute';
 import palavras from './palavras';
 import { usePlay } from './hooks/usePlay';
 import { useEffect, useRef } from 'react';
+import styled from 'styled-components';
+const AppContainer = styled.div`
+  width:100%;
+  height:100%;
+  @media (max-width:600px){
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+  }
+`
 function App() {
   const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
   const [state, startGame, tryLetter, tryFinalWord] = usePlay(alfabeto, palavras);
@@ -23,7 +34,7 @@ function App() {
     return () => window.removeEventListener('keydown', keyHandler)
   }, [state.chosenWord])
   return (
-    <>
+    <AppContainer>
       <JogoContainer>
         <Jogo
           isWon={state.won}
@@ -44,7 +55,7 @@ function App() {
       </LetrasContainer>
       <Chute keyHandler={keyHandler}
       tryFinalWord={tryFinalWord} isDisabled={state.isDisabledInput} />
-    </>
+    </AppContainer>
   );
 }
 

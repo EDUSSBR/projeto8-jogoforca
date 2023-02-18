@@ -8,4 +8,8 @@ export const LetrasContainer = styled.div`
     align-items:center;
     justify-content:center;
     gap:12px;
+    @media (max-width:710px) {
+        margin: 10px auto 0 auto;
+    }
+ 
 `

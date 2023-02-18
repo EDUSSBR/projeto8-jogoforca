@@ -1,11 +1,11 @@
 import { useRef } from 'react';
-import { Label, TryButton, KnowTheWordInput, TryContainer } from './shared/ChuteItems';
+import { Label, TryButton, KnowTheWordInput, TryContainer, Form } from './shared/ChuteItems';
 export function Chute({tryFinalWord, isDisabled, keyHandler }) {
     const inputRef = useRef();
     return (
         <TryContainer>
             <Label>Já sei a palavra!</Label>
-            <form  onFocus={()=>{
+            <Form  onFocus={()=>{
         window.removeEventListener('keydown', keyHandler)
       }} onBlur={()=>{
         window.addEventListener('keydown', keyHandler)
@@ -15,6 +15,6 @@ export function Chute({tryFinalWord, isDisabled, keyHandler }) {
                 tryFinalWord(inputRef.current.value);
                 inputRef.current.value='';
                 }} disabled={isDisabled}>Chutar</TryButton>
-                </form>
+                </Form>
         </TryContainer>);
 };

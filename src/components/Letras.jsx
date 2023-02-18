@@ -10,7 +10,10 @@ const Button = styled.button`
         background-color: ${({ theme }) => theme.colors.lettersBtnBgDisabled};
         color: ${({ theme }) => theme.colors.lettersBtnColorDisabled};
     }
-
+    @media (max-width: 710px){
+        width:30px;
+        height:30px;
+    }
 `;
 
 export function Letras({ letter, isDisabled = true, tryLetter }) {
