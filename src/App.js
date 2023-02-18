@@ -11,17 +11,17 @@ function App() {
   const [state, startGame, tryLetter, tryFinalWord] = usePlay(alfabeto, palavras);
   console.clear()
   console.log("for you to know the word is: ", state.chosenWord !== 0 && state.chosenWord.map(word => word.value).join(""))
+  function keyHandler(event) {
+    tryLetter(event.key)
+  }
   useEffect(() => {
-    function keyHandler(event) {
-      tryLetter(event.key)
-    }
     if (state.chosenWord !== 0) {
       window.addEventListener('keydown', keyHandler)
     } else {
       return
     }
     return () => window.removeEventListener('keydown', keyHandler)
-  })
+  },[])
   return (
     <>
       <JogoContainer>
@@ -42,7 +42,12 @@ function App() {
             isDisabled={!(item.alreadyUsed)}
           />)}
       </LetrasContainer>
-      <Chute tryFinalWord={tryFinalWord} isDisabled={state.isDisabledInput} />
+      <Chute onFocus={()=>{
+        window.removeEventListener('keydown', keyHandler)
+      }} onBlur={()=>{
+        window.addEventListener('keydown', keyHandler)
+      }}
+      tryFinalWord={tryFinalWord} isDisabled={state.isDisabledInput} />
     </>
   );
 }
