@@ -8,6 +8,8 @@ import { usePlay } from './hooks/usePlay';
 function App() {
   const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
   const [state, startGame, tryLetter, tryFinalWord] = usePlay(alfabeto, palavras);
+  console.clear()
+  console.log("for you to know the word is: ", state.chosenWord!==0 && state.chosenWord.map(word=>word.value).join(""))
   return (
     <>
       <JogoContainer>

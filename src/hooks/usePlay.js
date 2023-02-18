@@ -13,7 +13,18 @@ export function usePlay(lettersArr, outSideWords) {
     const disableLetters = () => lettersArr.map((letter, index) => ({ letter: letter.toUpperCase(), alreadyUsed: false, id: index }))
     const enableLetters = () => lettersArr.map((letter, index) => ({ letter: letter.toUpperCase(), alreadyUsed: true, id: index }))
     const generateWord = () => state.words[Math.floor(Math.random() * (state.words.length + 1))].split('').map(letter => ({ value: letter, found: false }))
-    const fullWordCheck = (word) => (word === state.chosenWord.map(letter => letter.value).join("")) ? true : false
+    const fullWordCheck = (word) => (word.replace(/[áàâãä]/g, 'a')
+    .replace(/[éèêë]/g, 'e')
+    .replace(/[íìîï]/g, 'i')
+    .replace(/[óòôõö]/g, 'o')
+    .replace(/[úùûü]/g, 'u')
+    .replace(/[ç]/g, 'c').toLowerCase() === state.chosenWord.map(letter => letter.value).join("")
+    .replace(/[áàâãä]/g, 'a')
+    .replace(/[éèêë]/g, 'e')
+    .replace(/[íìîï]/g, 'i')
+    .replace(/[óòôõö]/g, 'o')
+    .replace(/[úùûü]/g, 'u')
+    .replace(/[ç]/g, 'c').toLowerCase()) ? true : false
     const setChosenWordToShow = () => state.chosenWord.map(letter => ({ ...letter, found: true }))
     const checkLifePoints = (points, maxLifePoints) => (maxLifePoints === points ? true : false)
     const setLostState = (state) => ({ ...state, lost: true, isDisabledInput: true, trackedLettersArr: disableLetters(), chosenWord: setChosenWordToShow() })
@@ -27,12 +38,12 @@ export function usePlay(lettersArr, outSideWords) {
         let newState = {
             ...state,
             chosenWord: state.chosenWord.map(item => {
-                if (item.value.replace(/[áàâãä]/g, 'a')
+                if (item.value.toLowerCase().replace(/[áàâãä]/g, 'a')
                 .replace(/[éèêë]/g, 'e')
                 .replace(/[íìîï]/g, 'i')
                 .replace(/[óòôõö]/g, 'o')
                 .replace(/[úùûü]/g, 'u')
-                .replace(/[ç]/g, 'c').toLowerCase() === letter.toLowerCase()) {
+                .replace(/[ç]/g, 'c') === letter.toLowerCase()) {
                     foundFlag = true
                     return { ...item, found: true }
                 }
