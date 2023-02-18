@@ -27,7 +27,12 @@ export function usePlay(lettersArr, outSideWords) {
         let newState = {
             ...state,
             chosenWord: state.chosenWord.map(item => {
-                if (item.value.toLowerCase() === letter.toLowerCase()) {
+                if (item.value.replace(/[áàâãä]/g, 'a')
+                .replace(/[éèêë]/g, 'e')
+                .replace(/[íìîï]/g, 'i')
+                .replace(/[óòôõö]/g, 'o')
+                .replace(/[úùûü]/g, 'u')
+                .replace(/[ç]/g, 'c').toLowerCase() === letter.toLowerCase()) {
                     foundFlag = true
                     return { ...item, found: true }
                 }
