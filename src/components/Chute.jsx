@@ -1,11 +1,15 @@
 import { useRef } from 'react';
 import { Label, TryButton, KnowTheWordInput, TryContainer } from './shared/ChuteItems';
-export function Chute({tryFinalWord, isDisabled }) {
+export function Chute({tryFinalWord, isDisabled, keyHandler }) {
     const inputRef = useRef();
     return (
         <TryContainer>
             <Label>Já sei a palavra!</Label>
-            <form onSubmit={(e)=>e.preventDefault()}>
+            <form  onFocus={()=>{
+        window.removeEventListener('keydown', keyHandler)
+      }} onBlur={()=>{
+        window.addEventListener('keydown', keyHandler)
+      }} onSubmit={(e)=>e.preventDefault()}>
             <KnowTheWordInput data-test="guess-input" ref={inputRef} disabled={isDisabled}/>
             <TryButton data-test="guess-button" onClick={()=>{
                 tryFinalWord(inputRef.current.value);

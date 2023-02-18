@@ -21,7 +21,7 @@ function App() {
       return
     }
     return () => window.removeEventListener('keydown', keyHandler)
-  },[])
+  }, [state.chosenWord])
   return (
     <>
       <JogoContainer>
@@ -42,11 +42,7 @@ function App() {
             isDisabled={!(item.alreadyUsed)}
           />)}
       </LetrasContainer>
-      <Chute onFocus={()=>{
-        window.removeEventListener('keydown', keyHandler)
-      }} onBlur={()=>{
-        window.addEventListener('keydown', keyHandler)
-      }}
+      <Chute keyHandler={keyHandler}
       tryFinalWord={tryFinalWord} isDisabled={state.isDisabledInput} />
     </>
   );
