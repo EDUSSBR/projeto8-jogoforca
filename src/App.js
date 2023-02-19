@@ -5,7 +5,7 @@ import { JogoContainer } from './components/JogoContainer';
 import { Chute } from './components/Chute';
 import palavras from './palavras';
 import { usePlay } from './hooks/usePlay';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 const AppContainer = styled.div`
   width:100%;
@@ -21,6 +21,7 @@ function App() {
   const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
   const [state, startGame, tryLetter, tryFinalWord] = usePlay(alfabeto, palavras);
   console.clear()
+  console.log("DisplayLetraUsada",state.displayLetterAlreadyUsedMessage)
   console.log("for you to know the word is: ", state.chosenWord !== 0 && state.chosenWord.map(word => word.value).join(""))
   function keyHandler(event) {
     if (alfabeto.filter(item=> item===event.key.toLowerCase()).length > 0 && state.won!==true && state.lost!==true){
@@ -44,6 +45,8 @@ function App() {
           lifePointsUsed={state.lifePointsUsed}
           initialWord={state.chosenWord.length > 0 ? state.chosenWord.map(item => item.found ? item.value : "_").join(" ") : ""}
           startGame={startGame}
+          message={state.message}
+          displayMessage={state.displayMessage}
         />
       </JogoContainer>
       <LetrasContainer>
