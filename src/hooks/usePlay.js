@@ -5,7 +5,7 @@ const initialState = {
     maxLifePoints: 6,
     isDisabledInput: true,
     trackedWordArray: '',
-    foundFlag: false,
+    foundLetterFlag: false,
     won: false,
     lost: false
 }
@@ -34,7 +34,8 @@ export function usePlay(lettersArr, outSideWords) {
     const [state, setState] = useState({words: outSideWords, trackedLettersArr: disableLetters(), ...initialState})
     const startGame = () => setState(resetState())
     function tryLetter(letter) {
-        let foundFlag = false
+        let foundLetterFlag = false
+        let isNowUsedYet = false
         let newState = {
             ...state,
             chosenWord: state.chosenWord.map(item => {
@@ -44,21 +45,23 @@ export function usePlay(lettersArr, outSideWords) {
                 .replace(/[óòôõö]/g, 'o')
                 .replace(/[úùûü]/g, 'u')
                 .replace(/[ç]/g, 'c') === letter.toLowerCase()) {
-                    foundFlag = true
+                    foundLetterFlag = true
                     return { ...item, found: true }
                 }
                 return item
             }),
             trackedLettersArr: state.trackedLettersArr.map((item, index) => {
-                if (item.letter === letter) {
+                if (item.letter.replace(/[ç]/g, 'c').toLowerCase() === letter.replace(/[ç]/g, 'c').toLowerCase() && item.alreadyUsed===true)    {
+                    isNowUsedYet=true
                     return { ...item, alreadyUsed: false, id: index }
                 }
                 return item
             }),
         }
-        if (!foundFlag) {
+        if (!foundLetterFlag && isNowUsedYet) {
             newState.lifePointsUsed += 1
-            foundFlag = false
+            foundLetterFlag = false
+            isNowUsedYet = false
         }
         if (checkLifePoints(state.maxLifePoints, newState.lifePointsUsed)) {
             newState = setLostState(newState)

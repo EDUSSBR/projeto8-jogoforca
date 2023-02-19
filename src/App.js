@@ -23,7 +23,9 @@ function App() {
   console.clear()
   console.log("for you to know the word is: ", state.chosenWord !== 0 && state.chosenWord.map(word => word.value).join(""))
   function keyHandler(event) {
-    tryLetter(event.key)
+    if (alfabeto.filter(item=> item===event.key.toLowerCase()).length > 0 && state.won!==true && state.lost!==true){
+      tryLetter(event.key)
+    }
   }
   useEffect(() => {
     if (state.chosenWord !== 0) {
